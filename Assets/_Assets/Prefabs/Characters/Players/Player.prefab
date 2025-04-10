@@ -115,9 +115,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.2
-  m_Height: 1.8
+  m_Height: 1.3499999
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 1.125, z: 0}
 --- !u!114 &790905326866109184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +143,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PlayerData>k__BackingField: {fileID: 11400000, guid: ea467ab1467c8ca44ac338bbba229f78, type: 2}
+  <ColliderUtility>k__BackingField:
+    <DefaultCollider>k__BackingField:
+      <Height>k__BackingField: 1.8
+      <CenterY>k__BackingField: 0.9
+      <Radius>k__BackingField: 0.2
+    <Slope>k__BackingField:
+      <StepHeightPercentage>k__BackingField: 0.25
 --- !u!1001 &5109407570326301919
 PrefabInstance:
   m_ObjectHideFlags: 0
