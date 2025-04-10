@@ -16,10 +16,10 @@
     
     #endregion
     
-    protected override void HandleStopMovementInput(bool previousStateIsStopping, bool stop)
+    protected override void HandleStopMovementInput(bool stop)
     {
-        base.HandleStopMovementInput(previousStateIsStopping, stop);
-        if (!stop && previousStateIsStopping)
+        base.HandleStopMovementInput(stop);
+        if (!stop)
         {
             StateMachine.ChangeState(PlayerStateReusableData.shouldWalk ? EPlayerStateType.Walk : EPlayerStateType.Run);
         }

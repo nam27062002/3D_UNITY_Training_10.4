@@ -8,10 +8,8 @@ public class PlayerState : IState
 
     protected PlayerStateReusableData PlayerStateReusableData => StateMachine.PlayerStateReusableData;
     //delegate
-    protected DelegateList<bool, bool> OnStopMovementInput = DelegateList<bool, bool>.CreateWithGlobalCache();
+    protected DelegateList<bool> OnStopMovementInput = DelegateList<bool>.CreateWithGlobalCache();
     
-    // private
-    private bool _previousStateIsStopping;
     protected PlayerState(PlayerStateMachine playerStateMachine, Player player)
     {
         Player = player;
@@ -60,8 +58,7 @@ public class PlayerState : IState
     private void ReadMovementInput()
     {
         PlayerStateReusableData.movementInput = Player.PlayerInput.PlayerAction.Move.ReadValue<Vector2>();
-        OnStopMovementInput?.Invoke(_previousStateIsStopping, PlayerStateReusableData.movementInput == Vector2.zero);
-        _previousStateIsStopping = PlayerStateReusableData.movementInput == Vector2.zero;
+        OnStopMovementInput?.Invoke(PlayerStateReusableData.movementInput == Vector2.zero);
     }
 
     private void Move()
@@ -163,7 +160,7 @@ public class PlayerState : IState
         Player.Rigidbody.linearVelocity = Vector3.zero;
     }
     
-    protected virtual void HandleStopMovementInput(bool previousStateIsStopping, bool stop)
+    protected virtual void HandleStopMovementInput(bool stop)
     {
 
     }

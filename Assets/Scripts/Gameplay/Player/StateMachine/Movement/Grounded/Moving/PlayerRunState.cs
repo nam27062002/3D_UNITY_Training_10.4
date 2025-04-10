@@ -1,6 +1,6 @@
 ﻿using UnityEngine.InputSystem;
 
-public class PlayerRunState : GroundStateMachine
+public class PlayerRunState : PlayerMovingState
 {
     public PlayerRunState(PlayerStateMachine playerStateMachine, Player player) : base(playerStateMachine, player)
     {
