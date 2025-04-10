@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         _playerStateMachine.PhysicsUpdate();
     }
 
-    private void OnValidate()
+    public void OnValidate()
     {
         ColliderUtility.Initialize(gameObject);
         ColliderUtility.CalculateCapsuleColliderDimensions();
