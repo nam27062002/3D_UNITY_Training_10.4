@@ -94,9 +94,11 @@ public class PlayerState : IState
         return Player.PlayerData.playerGroundedData.baseSpeed * PlayerStateReusableData.MovementSpeedModifier * PlayerStateReusableData.MovementOnSlopesSpeedModifier;
     }
 
-    private Vector3 GetPlayerHorizontalVelocity()
+    protected Vector3 GetPlayerHorizontalVelocity()
     {
-        return Player.Rigidbody.linearVelocity;
+        Vector3 playerHorizontalVelocity = Player.Rigidbody.linearVelocity;
+        playerHorizontalVelocity.y = 0f;
+        return playerHorizontalVelocity;
     }
 
     protected Vector3 GetPlayerVerticalVelocity()
@@ -128,6 +130,10 @@ public class PlayerState : IState
     private void RotateTowardsTargetRotation()
     {
         float currentYAngle = Player.Rigidbody.rotation.eulerAngles.y;
+        if (Mathf.Approximately(currentYAngle, PlayerStateReusableData.CurrentTargetRotation.y))
+        {
+            return;
+        }
         float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle,  PlayerStateReusableData.CurrentTargetRotation.y, ref PlayerStateReusableData.DampedTargetRotationCurrentVelocity.y, PlayerStateReusableData.TimeToReachTargetRotation.y - PlayerStateReusableData.DampedTargetRotationPassedTime.y);
         PlayerStateReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
         Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);

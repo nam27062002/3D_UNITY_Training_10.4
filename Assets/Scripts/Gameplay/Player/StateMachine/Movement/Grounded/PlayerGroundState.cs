@@ -29,12 +29,9 @@ public abstract class PlayerGroundState : PlayerState
             }
             float distanceToFloatingPoint = Player.ColliderUtility.CapsuleCollider.ColliderCenterInLocalSpace.y * Player.transform.localScale.y - hit.distance;
             if (Mathf.Approximately(distanceToFloatingPoint, 0f)) return;
-            if (distanceToFloatingPoint > 0f)
-            {
-                float amountToLift = distanceToFloatingPoint * _slopeData.StepReachForce - GetPlayerVerticalVelocity().y;
-                Vector3 liftForce = new Vector3(0f, amountToLift, 0f);
-                Player.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
-            }
+            float amountToLift = distanceToFloatingPoint * _slopeData.StepReachForce - GetPlayerVerticalVelocity().y;
+            Vector3 liftForce = new Vector3(0f, amountToLift, 0f);
+            Player.Rigidbody.AddForce(liftForce, ForceMode.VelocityChange);
         }
     }
 
