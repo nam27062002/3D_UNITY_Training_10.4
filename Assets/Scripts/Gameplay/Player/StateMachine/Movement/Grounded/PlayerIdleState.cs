@@ -10,7 +10,7 @@
     public override void Enter()
     {
         base.Enter();
-        PlayerStateReusableData.movementSpeedModifier = 0f;
+        PlayerStateReusableData.MovementSpeedModifier = 0f;
         ResetVelocity();
     }
     
@@ -21,7 +21,7 @@
         base.HandleStopMovementInput(stop);
         if (!stop)
         {
-            StateMachine.ChangeState(PlayerStateReusableData.shouldWalk ? EPlayerStateType.Walk : EPlayerStateType.Run);
+            StateMachine.ChangeState(PlayerStateReusableData.ShouldWalk ? EPlayerStateType.Walk : EPlayerStateType.Run);
         }
     }
 }

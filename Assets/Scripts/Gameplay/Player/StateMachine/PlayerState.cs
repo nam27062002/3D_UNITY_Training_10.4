@@ -57,13 +57,13 @@ public class PlayerState : IState
 
     private void ReadMovementInput()
     {
-        PlayerStateReusableData.movementInput = Player.PlayerInput.PlayerAction.Move.ReadValue<Vector2>();
-        OnStopMovementInput?.Invoke(PlayerStateReusableData.movementInput == Vector2.zero);
+        PlayerStateReusableData.MovementInput = Player.PlayerInput.PlayerAction.Move.ReadValue<Vector2>();
+        OnStopMovementInput?.Invoke(PlayerStateReusableData.MovementInput == Vector2.zero);
     }
 
     private void Move()
     {
-        if (PlayerStateReusableData.movementInput != Vector2.zero && PlayerStateReusableData.movementSpeedModifier != 0f)
+        if (PlayerStateReusableData.MovementInput != Vector2.zero && PlayerStateReusableData.MovementSpeedModifier != 0f)
         {
             Vector3 movementDirection = GetMovementDirection();
             float targetRotationYAngle = Rotate(movementDirection);
@@ -86,12 +86,12 @@ public class PlayerState : IState
     #region Reusable Methods
     private Vector3 GetMovementDirection()
     {
-        return new Vector3(PlayerStateReusableData.movementInput.x, 0f, PlayerStateReusableData.movementInput.y);
+        return new Vector3(PlayerStateReusableData.MovementInput.x, 0f, PlayerStateReusableData.MovementInput.y);
     }
 
     private float GetMovementSpeed()
     {
-        return Player.PlayerData.playerGroundedData.baseSpeed * PlayerStateReusableData.movementSpeedModifier;
+        return Player.PlayerData.playerGroundedData.baseSpeed * PlayerStateReusableData.MovementSpeedModifier * PlayerStateReusableData.MovementOnSlopesSpeedModifier;
     }
 
     private Vector3 GetPlayerHorizontalVelocity()
@@ -182,7 +182,7 @@ public class PlayerState : IState
     
     protected virtual void OnWalkToggleStarted(InputAction.CallbackContext context)
     {
-        PlayerStateReusableData.shouldWalk = !PlayerStateReusableData.shouldWalk;
+        PlayerStateReusableData.ShouldWalk = !PlayerStateReusableData.ShouldWalk;
     }
     #endregion
     

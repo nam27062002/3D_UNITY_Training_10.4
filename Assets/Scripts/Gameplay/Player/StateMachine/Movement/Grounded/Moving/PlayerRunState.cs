@@ -9,7 +9,7 @@ public class PlayerRunState : PlayerMovingState
     public override void Enter()
     {
         base.Enter();
-        PlayerStateReusableData.movementSpeedModifier = Player.PlayerData.playerGroundedData.playerRunData.speedModifier;
+        PlayerStateReusableData.MovementSpeedModifier = Player.PlayerData.playerGroundedData.playerRunData.speedModifier;
     }
     
     protected override void OnWalkToggleStarted(InputAction.CallbackContext context)

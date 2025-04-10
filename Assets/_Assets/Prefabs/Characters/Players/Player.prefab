@@ -150,6 +150,12 @@ MonoBehaviour:
       <Radius>k__BackingField: 0.2
     <Slope>k__BackingField:
       <StepHeightPercentage>k__BackingField: 0.25
+      <FloatRayDistance>k__BackingField: 2
+      <StepReachForce>k__BackingField: 25
+  <LayerData>k__BackingField:
+    <GroundLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 64
 --- !u!1001 &5109407570326301919
 PrefabInstance:
   m_ObjectHideFlags: 0

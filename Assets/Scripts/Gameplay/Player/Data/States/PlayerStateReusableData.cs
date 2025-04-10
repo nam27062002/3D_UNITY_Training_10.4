@@ -2,9 +2,10 @@
 
 public class PlayerStateReusableData
 {
-    public Vector2 movementInput;
-    public float movementSpeedModifier = 1f;
-    public bool shouldWalk;
+    public Vector2 MovementInput { get; set; }
+    public float MovementSpeedModifier { get; set; } = 1f;
+    public float MovementOnSlopesSpeedModifier { get; set; } = 1f;
+    public bool ShouldWalk { get; set; }
     private Vector3 _currentTargetRotation;
     private Vector3 _timeToReachTargetRotation;
     private Vector3 _dampedTargetRotationCurrentVelocity;
