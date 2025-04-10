@@ -4,4 +4,5 @@
     Idle = 1,
     Walk = 2,
     Run = 3,
+    Dash = 4,
 }

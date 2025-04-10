@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public abstract class PlayerGroundState : PlayerState
 {
@@ -40,5 +41,22 @@ public abstract class PlayerGroundState : PlayerState
         float slopeSpeedModifier = Player.PlayerData.playerGroundedData.SlopeSpeedAngles.Evaluate(angle);
         StateMachine.PlayerStateReusableData.MovementOnSlopesSpeedModifier = slopeSpeedModifier;
         return slopeSpeedModifier;
+    }
+
+    protected override void AddInputActionsCallbacks()
+    {
+        base.AddInputActionsCallbacks();
+        Player.PlayerInput.PlayerAction.Dash.started += OnDashStarted;
+    }
+
+    protected override void RemoveInputActionsCallbacks()
+    {
+        base.RemoveInputActionsCallbacks();
+        Player.PlayerInput.PlayerAction.Dash.started -= OnDashStarted;
+    }
+
+    protected virtual void OnDashStarted(InputAction.CallbackContext context)
+    {
+        StateMachine.ChangeState(EPlayerStateType.Dash);
     }
 }

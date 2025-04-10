@@ -51,6 +51,18 @@ public class PlayerState : IState
         Move();
     }
 
+    public void OnAnimationEnterEvent()
+    {
+    }
+
+    public void OnAnimationExitEvent()
+    {
+    }
+
+    public void OnAnimationTransitionEvent()
+    {
+    }
+
     #endregion
 
     #region Main Methods
@@ -89,7 +101,7 @@ public class PlayerState : IState
         return new Vector3(PlayerStateReusableData.MovementInput.x, 0f, PlayerStateReusableData.MovementInput.y);
     }
 
-    private float GetMovementSpeed()
+    protected float GetMovementSpeed()
     {
         return Player.PlayerData.playerGroundedData.baseSpeed * PlayerStateReusableData.MovementSpeedModifier * PlayerStateReusableData.MovementOnSlopesSpeedModifier;
     }

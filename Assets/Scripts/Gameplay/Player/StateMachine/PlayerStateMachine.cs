@@ -3,7 +3,7 @@
 public class PlayerStateMachine : StateMachine
 {
      private readonly Dictionary<EPlayerStateType, PlayerState> _playerStates;
-     public PlayerStateReusableData PlayerStateReusableData;
+     public readonly PlayerStateReusableData PlayerStateReusableData;
      public PlayerStateMachine(Player player)
      {
           PlayerStateReusableData = new PlayerStateReusableData();
@@ -12,6 +12,7 @@ public class PlayerStateMachine : StateMachine
                { EPlayerStateType.Idle , new PlayerIdleState(this, player)},
                { EPlayerStateType.Walk, new PlayerWalkState(this, player)},
                { EPlayerStateType.Run, new PlayerRunState(this, player)},
+               { EPlayerStateType.Dash, new PlayerDashingState(this, player)}
           };
      }
      
