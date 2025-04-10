@@ -1,4 +1,4 @@
-﻿public class PlayerIdleState : GroundStateMachine
+﻿public class PlayerIdleState : PlayerGroundState
 {
 
     #region IState Methods

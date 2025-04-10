@@ -98,6 +98,11 @@ public class PlayerState : IState
     {
         return Player.Rigidbody.linearVelocity;
     }
+
+    protected Vector3 GetPlayerVerticalVelocity()
+    {
+        return new Vector3(0f, Player.Rigidbody.linearVelocity.y, 0f);
+    }
     
     private float AddCameraRotationToAngle(float angle)
     {

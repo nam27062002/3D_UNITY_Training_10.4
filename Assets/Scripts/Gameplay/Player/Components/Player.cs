@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerSO PlayerData {get; private set;}
     [Header("Collisions")]
     [field: SerializeField] public CapsuleColliderUtility ColliderUtility {get; private set;}
+    [field: SerializeField] public PlayerLayerData LayerData {get; private set;}
     public PlayerInput PlayerInput { get; set; }
     public Rigidbody Rigidbody { get; set; }
     public Transform MainCameraTransform { get; set; }

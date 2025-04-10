@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 68001303}
   - component: {fileID: 68001302}
   - component: {fileID: 68001301}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 133661264}
   - component: {fileID: 133661263}
   - component: {fileID: 133661262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -967,8 +967,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4437417316611961276, guid: 41395d59573f8ec4ca7791489fafc327, type: 3}
-      propertyPath: <ColliderUtility>k__BackingField.<Slope>k__BackingField.<StepHeightPercentage>k__BackingField
-      value: 0.25
+      propertyPath: <LayerData>k__BackingField.<GroundLayer>k__BackingField.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 6876838205424280779, guid: 41395d59573f8ec4ca7791489fafc327, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1013,14 +1013,6 @@ PrefabInstance:
     - target: {fileID: 7876347321716614501, guid: 41395d59573f8ec4ca7791489fafc327, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 9166976076430400730, guid: 41395d59573f8ec4ca7791489fafc327, type: 3}
-      propertyPath: m_Height
-      value: 1.3499999
-      objectReference: {fileID: 0}
-    - target: {fileID: 9166976076430400730, guid: 41395d59573f8ec4ca7791489fafc327, type: 3}
-      propertyPath: m_Center.y
-      value: 1.125
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
