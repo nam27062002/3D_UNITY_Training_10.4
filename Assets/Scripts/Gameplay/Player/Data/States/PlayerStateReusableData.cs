@@ -7,6 +7,7 @@ public class PlayerStateReusableData
     public float MovementOnSlopesSpeedModifier { get; set; } = 1f;
     public float MovementDecelerationForce { get; set; } = 1f;
     public bool ShouldWalk { get; set; }
+    public PlayerRotationData RotationData { get; set; }
     private Vector3 _currentTargetRotation;
     private Vector3 _timeToReachTargetRotation;
     private Vector3 _dampedTargetRotationCurrentVelocity;

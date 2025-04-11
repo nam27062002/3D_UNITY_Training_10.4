@@ -19,9 +19,9 @@ public class PlayerState : IState
 
     private void InitializeData()
     {
-        ReusableData.TimeToReachTargetRotation = Player.PlayerData.playerGroundedData.playerRotationData.targetRotationReachTime;
+        SetBaseRotationData();
     }
-
+    
     #region IState Methods
 
     public virtual void Enter()
@@ -139,7 +139,7 @@ public class PlayerState : IState
         return directionAngle;
     }
     
-    private void RotateTowardsTargetRotation()
+    protected void RotateTowardsTargetRotation()
     {
         float currentYAngle = Player.Rigidbody.rotation.eulerAngles.y;
         if (Mathf.Approximately(currentYAngle, ReusableData.CurrentTargetRotation.y))
@@ -158,7 +158,7 @@ public class PlayerState : IState
         ReusableData.DampedTargetRotationPassedTime.y = 0f;
     }
 
-    private float UpdateTargetRotation(Vector3 direction, bool shouldConsiderCameraRotation = true)
+    protected float UpdateTargetRotation(Vector3 direction, bool shouldConsiderCameraRotation = true)
     {
         float directionAngle = GetDirectionAngle(direction);
         if (shouldConsiderCameraRotation)
@@ -216,7 +216,11 @@ public class PlayerState : IState
         ReusableData.ShouldWalk = !ReusableData.ShouldWalk;
     }
     
-    
+    protected void SetBaseRotationData()
+    {
+        ReusableData.RotationData = Player.PlayerData.playerGroundedData.playerRotationData;
+        ReusableData.TimeToReachTargetRotation = ReusableData.RotationData.targetRotationReachTime;
+    }
     #endregion
     
 }

@@ -2,6 +2,7 @@
 
 public class PlayerWalkState : PlayerMovingState
 {
+    protected override EPlayerStateType StopStateType => EPlayerStateType.LightStop;
     public PlayerWalkState(PlayerStateMachine playerStateMachine, Player player) : base(playerStateMachine, player)
     {
     }

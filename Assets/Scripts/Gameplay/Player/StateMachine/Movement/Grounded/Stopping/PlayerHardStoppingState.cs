@@ -9,4 +9,13 @@
         base.Enter();
         ReusableData.MovementDecelerationForce = _stopData.HardDecelerationForce;
     }
+
+    protected override void OnMove()
+    {
+        if (ReusableData.ShouldWalk)
+        {
+            return;
+        }
+        StateMachine.ChangeState(EPlayerStateType.Run);
+    }
 }

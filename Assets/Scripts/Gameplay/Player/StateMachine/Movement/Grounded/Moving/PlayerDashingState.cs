@@ -6,6 +6,7 @@ public class PlayerDashingState : PlayerMovingState
     private readonly PlayerDashData _playerDashData;
     private float _startTime;
     private int _consecutiveDashesUsed;
+    private bool _shouldKeepRotating;
     
     public PlayerDashingState(PlayerStateMachine playerStateMachine, Player player) : base(playerStateMachine, player)
     {
@@ -16,17 +17,34 @@ public class PlayerDashingState : PlayerMovingState
     {
         base.Enter();   
         ReusableData.MovementSpeedModifier = _playerDashData.SpeedModifier;
+        ReusableData.RotationData = _playerDashData.RotationData;
         AddForceOnTransitionFromStationaryState();
+        _shouldKeepRotating = ReusableData.MovementInput != Vector2.zero;
         UpdateConsecutiveDashes();
         _startTime = Time.time;
     }
-    
+
+    public override void Exit()
+    {
+        base.Exit();
+        SetBaseRotationData();
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+        if (!_shouldKeepRotating)
+        {
+            return;
+        }
+        RotateTowardsTargetRotation();
+    }
+
     public override void OnAnimationTransitionEvent()
     {
-        base.OnAnimationTransitionEvent();
         if (ReusableData.MovementInput == Vector2.zero)
         {
-            StateMachine.ChangeState(EPlayerStateType.Idle);
+            StateMachine.ChangeState(EPlayerStateType.HardStop);
             return;
         }
         StateMachine.ChangeState(EPlayerStateType.Sprint);
@@ -41,6 +59,7 @@ public class PlayerDashingState : PlayerMovingState
 
         Vector3 characterRotationDirection = Player.transform.forward;
         characterRotationDirection.y = 0f;
+        UpdateTargetRotation(characterRotationDirection, false);
         Player.Rigidbody.linearVelocity = characterRotationDirection * GetMovementSpeed();
     }
 
@@ -65,5 +84,14 @@ public class PlayerDashingState : PlayerMovingState
     
     protected override void OnDashStarted(InputAction.CallbackContext context)
     {
+    }
+
+    protected override void HandleStopMovementInput(bool stop)
+    {
+        base.HandleStopMovementInput(stop);
+        if (!stop)
+        {
+            _shouldKeepRotating = true;
+        }
     }
 }

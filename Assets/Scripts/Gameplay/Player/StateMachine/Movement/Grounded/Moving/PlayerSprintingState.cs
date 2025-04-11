@@ -3,9 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerSprintingState : PlayerMovingState
 {
-    private PlayerSprintData _playerSprintData;
+    private readonly PlayerSprintData _playerSprintData;
     private bool _keepSprinting;
     private float _startTime;
+    protected override EPlayerStateType StopStateType => EPlayerStateType.HardStop;
     
     public PlayerSprintingState(PlayerStateMachine playerStateMachine, Player player) : base(playerStateMachine, player)
     {

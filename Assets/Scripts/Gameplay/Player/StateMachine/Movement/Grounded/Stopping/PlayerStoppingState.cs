@@ -1,4 +1,6 @@
-﻿public abstract class PlayerStoppingState : PlayerGroundState
+﻿using Unity.VisualScripting;
+
+public abstract class PlayerStoppingState : PlayerGroundState
 {
     protected PlayerStopData _stopData;
     protected PlayerStoppingState(PlayerStateMachine playerStateMachine, Player player) : base(playerStateMachine, player)
@@ -15,10 +17,25 @@
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        RotateTowardsTargetRotation();
         if (!IsMovingHorizontally())
         {
             return;
         }
         DecelerateHorizontally();
+    }
+
+    public override void OnAnimationTransitionEvent()
+    {
+        StateMachine.ChangeState(EPlayerStateType.Idle);
+    }
+    
+    protected override void HandleStopMovementInput(bool stop)
+    {
+        base.HandleStopMovementInput(stop);
+        if (!stop)
+        {
+            OnMove();
+        }
     }
 } 

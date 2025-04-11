@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerRunState : PlayerMovingState
 {
     private float _startTime;
-    private PlayerSprintData _playerSprintData;
+    private readonly PlayerSprintData _playerSprintData;
+    protected override EPlayerStateType StopStateType => EPlayerStateType.MediumStop;
     public PlayerRunState(PlayerStateMachine playerStateMachine, Player player) : base(playerStateMachine, player)
     {
         _playerSprintData = player.PlayerData.playerGroundedData.playerSprintData;

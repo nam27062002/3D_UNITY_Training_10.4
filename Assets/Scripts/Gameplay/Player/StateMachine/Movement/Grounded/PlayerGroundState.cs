@@ -59,4 +59,23 @@ public abstract class PlayerGroundState : PlayerState
     {
         StateMachine.ChangeState(EPlayerStateType.Dash);
     }
+    
+    protected virtual void OnMove()
+    {
+        // if (ReusableData.ShouldSprint)
+        // {
+        //     StateMachine.ChangeState(EPlayerStateType.Sprint);
+        //
+        //     return;
+        // }
+
+        if (ReusableData.ShouldWalk)
+        {
+            StateMachine.ChangeState(EPlayerStateType.Walk);
+
+            return;
+        }
+
+        StateMachine.ChangeState(EPlayerStateType.Run);
+    }
 }
