@@ -15,15 +15,26 @@ public class PlayerDashingState : PlayerMovingState
     public override void Enter()
     {
         base.Enter();   
-        PlayerStateReusableData.MovementOnSlopesSpeedModifier = _playerDashData.SpeedModifier;
+        ReusableData.MovementSpeedModifier = _playerDashData.SpeedModifier;
         AddForceOnTransitionFromStationaryState();
         UpdateConsecutiveDashes();
         _startTime = Time.time;
     }
+    
+    public override void OnAnimationTransitionEvent()
+    {
+        base.OnAnimationTransitionEvent();
+        if (ReusableData.MovementInput == Vector2.zero)
+        {
+            StateMachine.ChangeState(EPlayerStateType.Idle);
+            return;
+        }
+        StateMachine.ChangeState(EPlayerStateType.Sprint);
+    }
 
     private void AddForceOnTransitionFromStationaryState()
     {
-        if (PlayerStateReusableData.MovementInput != Vector2.zero)
+        if (ReusableData.MovementInput != Vector2.zero)
         {
             return;
         }

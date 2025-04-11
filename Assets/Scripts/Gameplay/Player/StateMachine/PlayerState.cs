@@ -6,7 +6,7 @@ public class PlayerState : IState
     protected readonly Player Player;
     protected readonly PlayerStateMachine StateMachine;
 
-    protected PlayerStateReusableData PlayerStateReusableData => StateMachine.PlayerStateReusableData;
+    protected PlayerStateReusableData ReusableData => StateMachine.PlayerStateReusableData;
     //delegate
     protected DelegateList<bool> OnStopMovementInput = DelegateList<bool>.CreateWithGlobalCache();
     
@@ -19,7 +19,7 @@ public class PlayerState : IState
 
     private void InitializeData()
     {
-        PlayerStateReusableData.TimeToReachTargetRotation = Player.PlayerData.playerGroundedData.playerRotationData.targetRotationReachTime;
+        ReusableData.TimeToReachTargetRotation = Player.PlayerData.playerGroundedData.playerRotationData.targetRotationReachTime;
     }
 
     #region IState Methods
@@ -51,15 +51,15 @@ public class PlayerState : IState
         Move();
     }
 
-    public void OnAnimationEnterEvent()
+    public virtual void OnAnimationEnterEvent()
     {
     }
 
-    public void OnAnimationExitEvent()
+    public virtual void OnAnimationExitEvent()
     {
     }
 
-    public void OnAnimationTransitionEvent()
+    public virtual void OnAnimationTransitionEvent()
     {
     }
 
@@ -69,13 +69,13 @@ public class PlayerState : IState
 
     private void ReadMovementInput()
     {
-        PlayerStateReusableData.MovementInput = Player.PlayerInput.PlayerAction.Move.ReadValue<Vector2>();
-        OnStopMovementInput?.Invoke(PlayerStateReusableData.MovementInput == Vector2.zero);
+        ReusableData.MovementInput = Player.PlayerInput.PlayerAction.Move.ReadValue<Vector2>();
+        OnStopMovementInput?.Invoke(ReusableData.MovementInput == Vector2.zero);
     }
 
     private void Move()
     {
-        if (PlayerStateReusableData.MovementInput != Vector2.zero && PlayerStateReusableData.MovementSpeedModifier != 0f)
+        if (ReusableData.MovementInput != Vector2.zero && ReusableData.MovementSpeedModifier != 0f)
         {
             Vector3 movementDirection = GetMovementDirection();
             float targetRotationYAngle = Rotate(movementDirection);
@@ -98,12 +98,12 @@ public class PlayerState : IState
     #region Reusable Methods
     private Vector3 GetMovementDirection()
     {
-        return new Vector3(PlayerStateReusableData.MovementInput.x, 0f, PlayerStateReusableData.MovementInput.y);
+        return new Vector3(ReusableData.MovementInput.x, 0f, ReusableData.MovementInput.y);
     }
 
     protected float GetMovementSpeed()
     {
-        return Player.PlayerData.playerGroundedData.baseSpeed * PlayerStateReusableData.MovementSpeedModifier * PlayerStateReusableData.MovementOnSlopesSpeedModifier;
+        return Player.PlayerData.playerGroundedData.baseSpeed * ReusableData.MovementSpeedModifier * ReusableData.MovementOnSlopesSpeedModifier;
     }
 
     protected Vector3 GetPlayerHorizontalVelocity()
@@ -142,20 +142,20 @@ public class PlayerState : IState
     private void RotateTowardsTargetRotation()
     {
         float currentYAngle = Player.Rigidbody.rotation.eulerAngles.y;
-        if (Mathf.Approximately(currentYAngle, PlayerStateReusableData.CurrentTargetRotation.y))
+        if (Mathf.Approximately(currentYAngle, ReusableData.CurrentTargetRotation.y))
         {
             return;
         }
-        float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle,  PlayerStateReusableData.CurrentTargetRotation.y, ref PlayerStateReusableData.DampedTargetRotationCurrentVelocity.y, PlayerStateReusableData.TimeToReachTargetRotation.y - PlayerStateReusableData.DampedTargetRotationPassedTime.y);
-        PlayerStateReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
+        float smoothedYAngle = Mathf.SmoothDampAngle(currentYAngle,  ReusableData.CurrentTargetRotation.y, ref ReusableData.DampedTargetRotationCurrentVelocity.y, ReusableData.TimeToReachTargetRotation.y - ReusableData.DampedTargetRotationPassedTime.y);
+        ReusableData.DampedTargetRotationPassedTime.y += Time.deltaTime;
         Quaternion targetRotation = Quaternion.Euler(0f, smoothedYAngle, 0f);
         Player.Rigidbody.MoveRotation(targetRotation);
     }
 
     private void UpdateTargetRotationData(float targetAngle)
     {
-        PlayerStateReusableData.CurrentTargetRotation.y = targetAngle;
-        PlayerStateReusableData.DampedTargetRotationPassedTime.y = 0f;
+        ReusableData.CurrentTargetRotation.y = targetAngle;
+        ReusableData.DampedTargetRotationPassedTime.y = 0f;
     }
 
     private float UpdateTargetRotation(Vector3 direction, bool shouldConsiderCameraRotation = true)
@@ -165,7 +165,7 @@ public class PlayerState : IState
         {
             directionAngle = AddCameraRotationToAngle(directionAngle);
         }
-        if (!Mathf.Approximately(directionAngle, PlayerStateReusableData.CurrentTargetRotation.y))
+        if (!Mathf.Approximately(directionAngle, ReusableData.CurrentTargetRotation.y))
         {
             UpdateTargetRotationData(directionAngle);
         }
@@ -188,20 +188,28 @@ public class PlayerState : IState
 
     }
 
+    protected void DecelerateHorizontally()
+    {
+        Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+        Player.Rigidbody.AddForce(-playerHorizontalVelocity * ReusableData.MovementDecelerationForce, ForceMode.Acceleration);
+    }
+
     protected virtual void AddInputActionsCallbacks()
     {
-        Player.PlayerInput.PlayerAction.Sprint.started += OnWalkToggleStarted;
+        Player.PlayerInput.PlayerAction.WalkToggle.started += OnWalkToggleStarted;
     }
     
     protected virtual void RemoveInputActionsCallbacks()
     {
-        Player.PlayerInput.PlayerAction.Sprint.started -= OnWalkToggleStarted;
+        Player.PlayerInput.PlayerAction.WalkToggle.started -= OnWalkToggleStarted;
     }
     
     protected virtual void OnWalkToggleStarted(InputAction.CallbackContext context)
     {
-        PlayerStateReusableData.ShouldWalk = !PlayerStateReusableData.ShouldWalk;
+        ReusableData.ShouldWalk = !ReusableData.ShouldWalk;
     }
+    
+    
     #endregion
     
 }

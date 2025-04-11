@@ -10,4 +10,5 @@ public class PlayerGroundedData
     public PlayerWalkData playerWalkData;
     public PlayerRunData playerRunData;
     public PlayerDashData playerDashData;
+    public PlayerSprintData playerSprintData;
 }

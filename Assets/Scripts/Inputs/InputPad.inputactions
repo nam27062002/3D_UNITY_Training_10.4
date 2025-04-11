@@ -78,7 +78,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Sprint",
+                    "name": "WalkToggle",
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
                     "expectedControlType": "",
@@ -102,6 +102,15 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Sprint",
+                    "type": "Button",
+                    "id": "2c6513c1-d314-40af-a92a-1e362d4da08b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold(duration=1)",
                     "initialStateCheck": false
                 }
             ],
@@ -355,7 +364,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Sprint",
+                    "action": "WalkToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -366,7 +375,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Sprint",
+                    "action": "WalkToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -377,7 +386,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Sprint",
+                    "action": "WalkToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -516,11 +525,33 @@
                 {
                     "name": "",
                     "id": "a5fc0319-9fb8-4e05-8505-44c89fe0647d",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad;Joystick",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "931c57d2-809c-4aff-a348-36b02a52c529",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5da0b5f6-cbe9-4b6c-9a3f-e3e2bc931e08",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
